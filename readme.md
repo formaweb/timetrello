@@ -6,7 +6,7 @@ Trello time tracking with Ruby.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'correios-sro'
+gem 'timetrello'
 ```
 
 And then execute:
