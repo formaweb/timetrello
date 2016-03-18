@@ -39,7 +39,7 @@ See some valid examples:
 - :clock12: 00:05 [2016-04-01]
 - :clock12: 007:59 [2012-03-17 21:50Z] "Other comment example."
 
-Oh, the default prefix to identify an annotations is the `:clock12: ` emoticon. And the default start date is the same of the comment.
+Oh, the default prefix to identify an annotation is the :clock12: (`:clock12: `) emoticon. And the default start date is the same of the comment.
 
 ### Ruby
 
