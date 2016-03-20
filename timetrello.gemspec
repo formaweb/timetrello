@@ -6,8 +6,8 @@ require 'timetrello/version'
 Gem::Specification.new do |spec|
   spec.name          = 'timetrello'
   spec.version       = TimeTrello::VERSION
-  spec.authors       = ['Caio Tarifa']
-  spec.email         = ['caiotarifa@gmail.com']
+  spec.authors       = ['Caio Tarifa', 'Ronaldo Faria Lima']
+  spec.email         = ['caiotarifa@gmail.com', 'ronaldo@nineteen.com.br']
   spec.description   = %q{Trello time tracking with Ruby.}
   spec.summary       = %q{Trello time tracking with Ruby.}
   spec.homepage      = ''
@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'trello'
+  spec.add_dependency 'ruby-trello'
 end
