@@ -25,10 +25,9 @@ module TimeTrello
     def <=>(y)
       r = @project <=> y.project
       if r == 0 
-        @owner <=> y.owner
-      else
-        r
+        r = r || @owner <=> y.owner
       end
+      r
     end
   end
 end
