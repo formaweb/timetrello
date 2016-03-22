@@ -50,7 +50,7 @@ module TimeTrello
     # TimeTrello::ActivityRecord
     def find_all &filter
       if @result_set.length > 0
-        return @result_set
+        return @result_set.find_all &filter
       end
       
       # TODO: Add calls to the persistence manager here

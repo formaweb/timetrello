@@ -6,22 +6,23 @@
 #
 # Main gem module
 
-require 'date'
+require 'ruby-trello'
 
 require 'time_trello/version'
 require 'time_trello/report'
 require 'time_trello/duration'
 
 module TimeTrello
+  # Private: Prefix for comment detection/parsing
   private
   attr_accessor :prefix
 
-  public
   # Public: Initializes this module with the proper trello client configuration.
   #
   # public_key - Trello public key used for authentication.
   #
   # member_token - Trello member token, used for authentication.
+  public
   def initialize(public_key, member_token, prefix)
     @prefix = prefix
     Trello.configure do |config|
