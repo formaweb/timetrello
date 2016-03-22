@@ -42,6 +42,8 @@ module TimeTrello
     end
 
     # Public: Operator overload. Sums up two different instances of Duration
+    #
+    # other - The other operand
     def +(other)
       duration = Duration.new(0)
       duration.internal_seconds = @internal_seconds + other.internal_seconds
@@ -50,6 +52,8 @@ module TimeTrello
     end
 
     # Public: Operator overload. Subtracts two different instances of Duration.
+    #
+    # other - The other operand
     def -(other)
       duration = Duration.new(0)
       duration.internal_seconds = @internal_seconds - other.internal_seconds
@@ -58,4 +62,4 @@ module TimeTrello
     end
   end
 
-end                   
+end

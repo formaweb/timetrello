@@ -8,9 +8,9 @@
 
 require 'date'
 
-require 'timetrello/version'
-require 'timetrello/report'
-require 'timetrello/duration'
+require 'time_trello/version'
+require 'time_trello/report'
+require 'time_trello/duration'
 
 module TimeTrello
 

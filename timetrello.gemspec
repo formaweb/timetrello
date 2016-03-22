@@ -1,7 +1,14 @@
-# coding: utf-8
+# -*-ruby-*-
+# Copyright (c) 2016 - Formaweb - All rights reserved
+#
+# Author:: Ronaldo Faria Lima
+# Created:: 2016-03-22
+#
+# GEM Spec for Time Trello
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'timetrello/version'
+require 'time_trello/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'timetrello'
