@@ -7,7 +7,7 @@
 # Test scenarios for Duration tests
 
 require 'minitest/autorun'
-require 'timetrello/duration'
+require 'time_trello/duration'
 
 class DurationTest < Minitest::Test
 
