@@ -22,12 +22,12 @@ module TimeTrello
       @project = project
       @start_time = start_time
     end
-    def <=>(y)
-      r = @project <=> y.project
-      if r == 0 
-        r = r || @owner <=> y.owner
+    def <=>(other)
+      result = @project <=> other.project
+      if result == 0 
+        result = result || @owner <=> other.owner
       end
-      r
+      result
     end
   end
 end

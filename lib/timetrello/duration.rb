@@ -7,24 +7,56 @@
 # Describes a duration in hours and minutes and proper operations using those.
 
 module TimeTrello
-  # Describes a duration in terms of hours and minutes, representing data
-  # internaly as seconds.
+
+  # Public: Describes a duration in terms of hours and minutes, representing
+  # data internaly as seconds.
   class Duration
-    attr_accessor :seconds
-    def initialize hours, minutes=0, seconds=0
-      @seconds = hours * 3600 + minutes * 60 + seconds
+    protected
+    attr_accessor :internal_seconds # Internal representation of a duration
+
+    public
+    # Public: Initializes this class with hours, minutes and seconds.
+    #
+    # hours - Hours as an integer.
+    #
+    # minutes - Minutes as an integer using sexagesimal representation.
+    #
+    # seconds - Seconds as an integer, using sexagesimal representation.
+    def initialize(hours, minutes = 0, seconds = 0)
+      @internal_seconds = hours * 3600 + minutes * 60 + seconds
     end
+
+    # Public: Getter. Returns the number of hours from a given duration
     def hours
-      @seconds / 3600
+      @internal_seconds / 3600
     end
+
+    # Public: Getter. Returns the number of minutes from the internal representation
     def minutes
-      @seconds / 60
+      @internal_seconds / 60
     end
-    def +(y)
-      Duration.new 0, 0, @seconds + y.seconds
+
+    # Public: Getter. Returns the number of seconds of a given duration
+    def seconds
+      @internal_seconds % 60
     end
-    def -(y)
-      Duration.new 0, 0, @seconds - y.seconds
+
+    # Public: Operator overload. Sums up two different instances of Duration
+    def +(other)
+      duration = Duration.new(0)
+      duration.internal_seconds = @internal_seconds + other.internal_seconds
+
+      duration
+    end
+
+    # Public: Operator overload. Subtracts two different instances of Duration.
+    def -(other)
+      duration = Duration.new(0)
+      duration.internal_seconds = @internal_seconds - other.internal_seconds
+      
+      duration
     end
   end
+
 end
+                   
