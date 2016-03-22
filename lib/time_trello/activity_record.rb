@@ -6,30 +6,56 @@
 #
 # Defines the structure that holds the activity record grabbed from a trello
 # board.
+
+require 'time_trello/duration';
+
 module TimeTrello
-  # An activity record identifies completely an activity done in trello. Its
-  # main ideia is to be a standard record that can be compared, sorted and
-  # collected, used for reporting.
+  
+  # Public: An activity record identifies completely an activity done in
+  # trello. Its main ideia is to be a standard record that can be compared,
+  # sorted and collected, used for reporting purposes.
   class ActivityRecord
     include Comparable
+
+    # Public: Task duration
     attr :duration
+    # Public: Task owner
     attr :owner
-    attr :project 
-    attr :start_time
-    def initialize project, owner, start_time, duration
+    # Public: Project name (i.e., Trello board)
+    attr :project
+    # Public: Task start date
+    attr :start_date
+
+    # Public: Initializes this class with proper information about a given task
+    #
+    # project - Project name (i.e., the board name)
+    #
+    # owner - Name of the duration owner
+    #
+    # start_date - When the task started
+    #
+    # duration - The task duration
+    def initialize project, owner, start_date, duration
       @duration = duration
       @owner = owner
       @project = project
-      @start_time = start_time
+      @start_date = start_date
     end
+
+    # Public: Implementation of Comparable mixin
+    #
+    # other - The other instance of ActivityRecord to compare with.
+    #
+    # This method compares two instances of ActivityRecord hierachly.
     def <=>(other)
       result = @project <=> other.project
-      if result == 0 
-        result = result || @owner <=> other.owner
-      end
+      result = @owner <=> other.owner if result == 0
+      result = @start_date <=> other.start_date if result == 0
+      
       result
     end
   end
+
 end
 
-require 'timetrello/duration';
+

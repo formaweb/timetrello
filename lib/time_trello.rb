@@ -13,13 +13,17 @@ require 'time_trello/report'
 require 'time_trello/duration'
 
 module TimeTrello
+  private
+  attr_accessor :prefix
 
+  public
   # Public: Initializes this module with the proper trello client configuration.
   #
   # public_key - Trello public key used for authentication.
   #
   # member_token - Trello member token, used for authentication.
-  def initialize(public_key, member_token)
+  def initialize(public_key, member_token, prefix)
+    @prefix = prefix
     Trello.configure do |config|
       config.developer_public_key = public_key
       config.member_token = member_token
@@ -38,7 +42,7 @@ module TimeTrello
   # filter - A block containing a filter for the results. The block must receive
   #          a parameter which is an instance of ActivityRecord.
   def find_all(start_date, end_date, board_id, &filter)
-    (Report.new(start_date, end_date, board_id)).find_all(&filter)
+    (Report.new(start_date, end_date, board_id, @prefix)).find_all(&filter)
   end
   
 end
