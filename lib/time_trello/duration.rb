@@ -41,6 +41,13 @@ module TimeTrello
       @internal_seconds.abs % 60
     end
 
+    # Public: Getter. Returns the number of raw minutes of a given duration
+    #
+    # Important: This is a float value, since it is a raw value
+    def raw_minutes
+      @internal_seconds.abs.to_f / 60.0
+    end
+
     # Public: Operator overload. Sums up two different instances of Duration
     #
     # other - The other operand
@@ -54,6 +61,11 @@ module TimeTrello
     # Public: Operator overload. Subtracts two different instances of Duration.
     #
     # other - The other operand
+    #
+    # Important: The resultant duration will have its components described
+    # always as positive numbers, even if other is greater than this
+    # instance. It is because the way ruby operates over negative numbers in an
+    # integer division.
     def -(other)
       duration = Duration.new(0)
       duration.internal_seconds = @internal_seconds - other.internal_seconds
