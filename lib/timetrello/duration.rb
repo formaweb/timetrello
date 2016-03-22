@@ -28,17 +28,17 @@ module TimeTrello
 
     # Public: Getter. Returns the number of hours from a given duration
     def hours
-      @internal_seconds / 3600
+      @internal_seconds.abs / 3600
     end
 
     # Public: Getter. Returns the number of minutes from the internal representation
     def minutes
-      @internal_seconds / 60
+      (@internal_seconds.abs / 60) % 60
     end
 
     # Public: Getter. Returns the number of seconds of a given duration
     def seconds
-      @internal_seconds % 60
+      @internal_seconds.abs % 60
     end
 
     # Public: Operator overload. Sums up two different instances of Duration
@@ -53,10 +53,9 @@ module TimeTrello
     def -(other)
       duration = Duration.new(0)
       duration.internal_seconds = @internal_seconds - other.internal_seconds
-      
+
       duration
     end
   end
 
-end
-                   
+end                   

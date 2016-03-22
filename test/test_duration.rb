@@ -11,10 +11,42 @@ require 'timetrello/duration'
 
 class DurationTest < Minitest::Test
 
+  # Public: Tests a duration with basic evaluation
   def test_basic_duration
     duration = TimeTrello::Duration.new(10, 20, 30) # 10:20.30
-    assert_equal(duration.hours, 10)
-    assert_equal(duration.minutes, 20)
-    assert_equal(duration.seconds, 30)
+    assert_equal(10, duration.hours)
+    assert_equal(20, duration.minutes)
+    assert_equal(30, duration.seconds)
+  end
+
+  # Public: Test scenario: duration summing
+  def test_duration_sum
+    x = TimeTrello::Duration.new(10, 20, 30)
+    y = TimeTrello::Duration.new(30, 20, 10)
+    r = x + y
+    assert_equal(40, r.hours)
+    assert_equal(40, r.minutes)
+    assert_equal(40, r.seconds)
+  end
+
+  # Public: Test scenario: checks subtraction operations
+  def test_duration_subtraction
+    x = TimeTrello::Duration.new(40, 40, 40)
+    y = TimeTrello::Duration.new(10, 10, 10)
+    r = x - y
+    assert_equal(30, r.hours)
+    assert_equal(30, r.minutes)
+    assert_equal(30, r.seconds)
+  end
+
+  # Public: Test scenario: checks leaps over hours, minutes and seconds
+  def test_clock_leap
+    x = TimeTrello::Duration.new(30, 30, 30)
+    y = TimeTrello::Duration.new(31, 0, 0)
+    r = x - y
+    puts "#{r.hours}:#{r.minutes}.#{r.seconds}"
+    assert_equal(0, r.hours)
+    assert_equal(29, r.minutes)
+    assert_equal(30, r.seconds)
   end
 end
