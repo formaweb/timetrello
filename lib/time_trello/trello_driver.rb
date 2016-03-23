@@ -34,7 +34,7 @@ module TimeTrello
 
     # Public: Getter. Gets all activities for a given board.
     def activities
-      return @ if @activities != nil && @activities.length > 0
+      return @activities if @activities != nil && @activities.length > 0
 
       @activities = []
       @board.cards.each do |card|
@@ -53,7 +53,7 @@ module TimeTrello
     #
     # action - Action related to a given card
     def parse_activity(action)
-      
+      puts "Action is #{action}"
     end
    end
 end

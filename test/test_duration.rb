@@ -9,7 +9,7 @@
 require 'minitest/autorun'
 require 'time_trello/duration'
 
-class DurationTest < Minitest::Test
+class TestDuration < Minitest::Test
 
   # Public: Tests a duration with basic evaluation
   def test_basic_duration
