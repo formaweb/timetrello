@@ -23,7 +23,7 @@ module TimeTrello
   #
   # member_token - Trello member token, used for authentication.
   public
-  def initialize(public_key, member_token, prefix)
+  def initialize(public_key, member_token, prefix = ':clock12:')
     @prefix = prefix
     Trello.configure do |config|
       config.developer_public_key = public_key
