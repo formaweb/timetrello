@@ -1,3 +1,5 @@
+
+
 # -*-ruby-*-
 # Copyright (c) 2016 - Formaweb - All rights reserved
 #
@@ -6,7 +8,7 @@
 #
 # Test scenarios for Duration tests
 
-require 'Trello'
+require 'trello'
 require 'minitest/autorun'
 require 'time_trello/trello_driver'
 
@@ -23,7 +25,7 @@ class TestTrelloDriver < Minitest::Test
   
   # Public: Basic test against a trello board
   def test_basic_scenario
-    trello_driver = TrelloDriver.new(@board_id, ':clock12:')
+    trello_driver = TimeTrello::TrelloDriver.new(@board_id, ':clock12:')
     trello_driver.activities.each do |activity|
       puts "Activity: #{activity}"
     end

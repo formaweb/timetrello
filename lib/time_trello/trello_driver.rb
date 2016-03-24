@@ -15,7 +15,6 @@ module TimeTrello
   # Public: Driver responsible to convert data gathered from Trello to an
   # internal representation.
   class TrelloDriver
-    attr :board
     attr :activities
     attr_accessor :board_id
     attr_accessor :prefix
@@ -27,7 +26,7 @@ module TimeTrello
 
     # Public: Getter. Gets a board, based on a board id.
     def board
-      @board = Trello::Board.find(board_id) unless @board == nil
+      @board = Trello::Board.find(@board_id) if @board == nil
 
       @board
     end
@@ -37,23 +36,27 @@ module TimeTrello
       return @activities if @activities != nil && @activities.length > 0
 
       @activities = []
-      @board.cards.each do |card|
-        if card.has_actions
-          card.actions.each do |action|
-            activity = parse_activity(action)
-            @activities.push(activity) unless activity == nil
-          end
+      self.board.cards.each do |card|
+        card.actions.each do |action|
+          activity = self.parse(action)
+          @activities.push (activity) unless activity == nil
         end
       end
-
+      
       @activities
     end
 
     # Private: Parses an action in order to construct an ActivityRecord instance
     #
     # action - Action related to a given card
-    def parse_activity(action)
-      puts "Action is #{action}"
+    private 
+    def parse(action)
+      if !action.data['text'].starts_with?(@prefix)
+        # If comments do not start with prefix, discard it. We are seeking for
+        # properly formatted texts.
+        return nil
+      end
+      
     end
    end
 end
