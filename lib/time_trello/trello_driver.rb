@@ -38,7 +38,7 @@ module TimeTrello
       @activities = []
       self.board.cards.each do |card|
         card.actions.each do |action|
-          activity = self.parse(action)
+          activity = parse(action)
           @activities.push (activity) unless activity == nil
         end
       end
@@ -49,14 +49,25 @@ module TimeTrello
     # Private: Parses an action in order to construct an ActivityRecord instance
     #
     # action - Action related to a given card
-    private 
+    @parser_steps = [
+      lambda do |action, activity|
+        puts action
+      end
+    ]
+    
     def parse(action)
-      if !action.data['text'].starts_with?(@prefix)
+      text_data = action.data['text']
+      if !text_data.starts_with?(@prefix)
         # If comments do not start with prefix, discard it. We are seeking for
         # properly formatted texts.
         return nil
       end
-      
+
+      activity = ActivityRecord.new()
+      @parser_steps.each { |step| step.call(action, activity) }
+
+      activity
     end
+
    end
 end
