@@ -49,4 +49,13 @@ class TestDuration < Minitest::Test
     assert_equal(29, r.minutes)
     assert_equal(30, r.seconds)
   end
+
+  # Public: Test scenario: tests duration against the new constructor
+  def test_string_parameter
+    x = TimeTrello::Duration.new("10:20.30")
+    assert_equal(10, x.hours)
+    assert_equal(20, x.minutes)
+    assert_equal(30, x.seconds)
+  end
+  
 end

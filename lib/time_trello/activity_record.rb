@@ -35,11 +35,13 @@ module TimeTrello
     # start_date - When the task started
     #
     # duration - The task duration
-    def initialize project, owner, start_date, duration
-      @duration = duration
-      @owner = owner
-      @project = project
-      @start_date = start_date
+    def initialize(*args)
+      if args.size != 0
+        @duration   = args[0]
+        @owner      = args[1]
+        @project    = args[2]
+        @start_date = args[3]
+      end
     end
 
     # Public: Implementation of Comparable mixin

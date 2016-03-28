@@ -14,16 +14,31 @@ module TimeTrello
     protected
     attr_accessor :internal_seconds # Internal representation of a duration
 
-    public
-    # Public: Initializes this class with hours, minutes and seconds.
+    
+    # Public: Initializes this class with hours, minutes and seconds. You can
+    # provide two different sets of arguments in order to initialize this class.
     #
     # hours - Hours as an integer.
     #
     # minutes - Minutes as an integer using sexagesimal representation.
     #
     # seconds - Seconds as an integer, using sexagesimal representation.
-    def initialize(hours, minutes = 0, seconds = 0)
-      @internal_seconds = hours * 3600 + minutes * 60 + seconds
+    #
+    # or:
+    #
+    # a string containing the duration using the format hh:mm.ss
+    public
+    def initialize(*args)
+      @internal_seconds = 0 
+      time_components = args
+      if args.size == 1 && args[0].class.equal?(String)
+        time_components = args[0].split(/[:.]/)
+      end
+      factor = 3600
+      time_components.each do |component|
+        @internal_seconds += factor * component.to_i
+        factor /= 60
+      end
     end
 
     # Public: Getter. Returns the number of hours from a given duration

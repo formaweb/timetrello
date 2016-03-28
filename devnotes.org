@@ -1,0 +1,40 @@
+* Estrutura de dados - Trello::Action
+Trello::Action:0x007fc92925ccf0 
+@attributes = {
+    :id => "56f2ffbd352ef05e76d81e0d", 
+    :type => "commentCard", 
+    :data => {
+        "list" => {
+            "name"=>"Waiting", 
+            "id"=>"56ec3e998574b7c9b38febf9"
+        }, 
+        "board" => {
+            "shortLink"=>"TBlmvTjl", 
+            "name"=>"Time Trello Test Board", 
+            "id"=>"56ec3e8fa4a09bedb3b1c073"
+        }, 
+        "card" => {
+            "shortLink"=>"gw30Dwgi", 
+            "idShort"=>1, 
+            "name"=>"teste", 
+            "id"=>"56ec40710c7740d6cd59fa8e"
+        }, 
+        "text"=>":clock12: 100:30 Teste"
+    }, 
+    :date=>2016-03-23 20:42:37 UTC, 
+    :member_creator_id=>"519689c3ac4874c06500af1a", 
+    :member_participant=>nil
+}
+
+* Injeção de atributos
+O ruby não permite a criação de atributos por demanda para objetos sem alterar a
+classe inicial.
+* Estrutura de dados - Trello::Member
+id        => "519689c3ac4874c06500af1a", 
+username  => "ronaldofarialima", 
+email     => "ronaldo.faria.lima@gmail.com", 
+full_name => "Ronaldo Faria Lima", 
+initials  => "RL", 
+avatar_id => "43e84b73c310c8e48bccd63df9c1a01d", 
+bio       => "", 
+url       => "https://trello.com/ronaldofarialima"
