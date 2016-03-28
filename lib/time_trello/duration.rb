@@ -18,9 +18,7 @@ module TimeTrello
     # provide two different sets of arguments in order to initialize this class.
     #
     # hours - Hours as an integer.
-    #
     # minutes - Minutes as an integer using sexagesimal representation.
-    #
     # seconds - Seconds as an integer, using sexagesimal representation.
     #
     # or:

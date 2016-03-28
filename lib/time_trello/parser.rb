@@ -28,7 +28,6 @@ module TimeTrello
     # block that takes two parameters:
     #
     # action_record - Hash containing Trello::Action and Trello::Member instances
-    #
     # record - TimeTrello::ActivityRecord instance to build
     #
     # Return:: true if parsing was flawless and false otherwise
@@ -72,6 +71,18 @@ module TimeTrello
           activity.start_date = DateTime.parse(txt_date[0].to_s).to_time unless txt_date.size == 0
 
           activity.start_date != nil
+        end,
+
+        # Parses the task comment
+        lambda do |action_record, activity|
+          txt_comment = action_record[:action].data["text"].scan(/"[a-zA-Z0-9]+"/)
+          if txt_comment.size != 0
+            activity.task_description = txt_comment[0]
+          else
+            activity.task_description  = action_record[:action].card.name
+          end
+
+          activity.task_description != nil
         end
       ]
     end
@@ -85,7 +96,6 @@ module TimeTrello
     #          - :action_record - An instance of Trello::Action_Record class
     #          - :member - An instance of Trello::Member class, which is the
     #            creator of the action_record with details.
-    #
     # prefix - Prefix to use for comment detection
     public
     def initialize(action_record, prefix)

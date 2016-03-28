@@ -28,9 +28,7 @@ module TimeTrello
     # Public: Initializes this class providing initial filter information
     #
     # start_date - Used to limit the result set. It is the start of time records
-    #
     # end_date - Used to limit the result set. It is the end of time records
-    #
     # board_id - Identification of the given board. Used to grab information
     # from an specific board.
     def initialize(start_date, end_date, board_id, prefix)

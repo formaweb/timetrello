@@ -20,7 +20,6 @@ module TimeTrello
   # Public: Initializes this module with the proper trello client configuration.
   #
   # public_key - Trello public key used for authentication.
-  #
   # member_token - Trello member token, used for authentication.
   public
   def self.initialize(public_key, member_token, prefix = ':clock12:')
@@ -34,12 +33,9 @@ module TimeTrello
   # Public: Generates the report based on the provided parameters.
   #
   # start_date - The start date to limit the results.
-  #
   # end_date - The end date to limit the results.
-  #
   # board_id - Identification of the board that should be parsed in order to
   #            return results.
-  #
   # filter - A block containing a filter for the results. The block must receive
   #          a parameter which is an instance of ActivityRecord.
   def self.find_all(start_date, end_date, board_id, &filter)
