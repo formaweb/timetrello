@@ -13,7 +13,6 @@ module TimeTrello
   class Duration
     protected
     attr_accessor :internal_seconds # Internal representation of a duration
-
     
     # Public: Initializes this class with hours, minutes and seconds. You can
     # provide two different sets of arguments in order to initialize this class.

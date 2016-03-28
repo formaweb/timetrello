@@ -6,7 +6,7 @@
 # Author:: Ronaldo Faria Lima
 # Created:: 2016-03-21
 #
-# Test scenarios for Duration tests
+# Test scenarios for Trello Driver
 
 require 'trello'
 require 'minitest/autorun'
@@ -27,7 +27,10 @@ class TestTrelloDriver < Minitest::Test
   def test_basic_scenario
     trello_driver = TimeTrello::TrelloDriver.new(@board_id, ':clock12:')
     trello_driver.activities.each do |activity|
-      puts "Activity: #{activity}"
+      assert(activity.project != nil, "Invalid project name")
+      assert(activity.start_date != nil, "Invalid start date")
+      assert(activity.duration != nil, "Invalid duration")
+      assert(activity.owner != nil, "Invalid owner")
     end
   end
 

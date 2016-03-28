@@ -37,12 +37,16 @@ module TimeTrello
     def workflow
       [
         # Detects if a given action_record is the one we are looking for.
-        lambda { |action_record, activity| action_record[:action].data['text'].starts_with?(@prefix) },
+        lambda do |action_record, activity|
+          return action_record[:action].data['text'].starts_with?(@prefix) unless action_record[:action].data['text'] == nil
+
+          false
+        end,
         
         # Parses the duration
         lambda do |action_record, activity|
           txt_duration = action_record[:action].data['text'].scan(/[0-9]+:[0-9]+/)
-          activity.duration = Duration.new (txt_duration) unless txt_duration == nil
+          activity.duration = Duration.new(txt_duration[0]) unless txt_duration.size == 0
 
           activity.duration != nil
         end,
@@ -65,7 +69,7 @@ module TimeTrello
         lambda do |action_record, activity|
           activity.start_date = action_record[:action].date
           txt_date = action_record[:action].data["text"].scan(/\[[A-Z0-9:. -]+\]/)
-          activity.start_date = DateTime.parse(txt_date.to_s).to_time unless txt_date == nil
+          activity.start_date = DateTime.parse(txt_date[0].to_s).to_time unless txt_date.size == 0
 
           activity.start_date != nil
         end

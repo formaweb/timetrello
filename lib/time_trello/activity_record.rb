@@ -18,13 +18,13 @@ module TimeTrello
     include Comparable
 
     # Public: Task duration
-    attr :duration
+    attr_accessor :duration
     # Public: Task owner
-    attr :owner
+    attr_accessor :owner
     # Public: Project name (i.e., Trello board)
-    attr :project
+    attr_accessor :project
     # Public: Task start date
-    attr :start_date
+    attr_accessor :start_date
 
     # Public: Initializes this class with proper information about a given task
     #
@@ -50,6 +50,9 @@ module TimeTrello
     #
     # This method compares two instances of ActivityRecord hierachly.
     def <=>(other)
+      if other == nil
+        return -1
+      end
       result = @project <=> other.project
       result = @owner <=> other.owner if result == 0
       result = @start_date <=> other.start_date if result == 0

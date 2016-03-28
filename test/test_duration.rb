@@ -44,7 +44,6 @@ class TestDuration < Minitest::Test
     x = TimeTrello::Duration.new(30, 30, 30)
     y = TimeTrello::Duration.new(31, 0, 0)
     r = x - y
-    puts "#{r.hours}:#{r.minutes}.#{r.seconds}"
     assert_equal(0, r.hours)
     assert_equal(29, r.minutes)
     assert_equal(30, r.seconds)
