@@ -1,5 +1,3 @@
-
-
 # -*-ruby-*-
 # Copyright (c) 2016 - Formaweb - All rights reserved
 #

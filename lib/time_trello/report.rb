@@ -6,6 +6,8 @@
 #
 # Reporting engine. Used to select and build a result set to the caller.
 
+require 'time_trello/trello_driver'
+
 module TimeTrello
 
   # Public: This class represents a report manager on the time trello
@@ -53,7 +55,9 @@ module TimeTrello
         return @result_set.find_all &filter
       end
       
-      # TODO: Add calls to the persistence manager here
+      driver = TrelloDriver.new(@board_id, @prefix)
+      @result_set = driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
+      
       if filter
         return @result_set.find_all &filter  
       end

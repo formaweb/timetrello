@@ -6,7 +6,7 @@
 #
 # Main gem module
 
-require 'ruby-trello'
+require 'trello'
 
 require 'time_trello/version'
 require 'time_trello/report'
@@ -23,7 +23,7 @@ module TimeTrello
   #
   # member_token - Trello member token, used for authentication.
   public
-  def initialize(public_key, member_token, prefix = ':clock12:')
+  def self.initialize(public_key, member_token, prefix = ':clock12:')
     @prefix = prefix
     Trello.configure do |config|
       config.developer_public_key = public_key
@@ -42,7 +42,7 @@ module TimeTrello
   #
   # filter - A block containing a filter for the results. The block must receive
   #          a parameter which is an instance of ActivityRecord.
-  def find_all(start_date, end_date, board_id, &filter)
+  def self.find_all(start_date, end_date, board_id, &filter)
     (Report.new(start_date, end_date, board_id, @prefix)).find_all(&filter)
   end
   
