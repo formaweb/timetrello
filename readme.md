@@ -1,6 +1,8 @@
 # TimeTrello
 
-Trello time tracking with Ruby.
+Time Trello is a simple gem that can interpret special trello comments. Those
+comments are then converted to a record type that makes it easy to integrate a
+time tracking application with Trello.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -24,11 +26,12 @@ gem install timetrello
 
 ## Usage
 
-You can use `TimeTrello` class itself.
+You use the module directly.
 
 ### Trello
 
-All time tracking annotations must be entered through a unique comment for this purpose. See below the pattern to follow.
+All time tracking annotations must follow the specification below in order to be
+understood and consolidated by Time Trello.
 
 **PREFIX** **TIME** [**START_DATE**] "**COMMENT**"
 
@@ -39,15 +42,17 @@ See some valid examples:
 - :clock12: 00:05 [2016-04-01]
 - :clock12: 007:59 [2012-03-17 21:50Z] "Other comment example."
 
-Oh, the default prefix to identify an annotation is the :clock12: (`:clock12: `) emoticon. And the default start date is the same of the comment.
+The default prefix which identifies the proper comment is :clock12: (`:clock12:
+`) emoticon. If no start date is provided through the comment, the comment
+timestamp is used.
 
 ### Ruby
 
 ```ruby
-require 'timetrello'
+require 'time_trello'
 
-timetrello = TimeTrello.new 'public_key', 'member_token', ':clock12: '
-tasks = timetrello.getTasks 'board_id', filters: {startDate: '', endDate: ''}
+TimeTrello.initialize('your trello public key here', 'your trello token here', ':clock12:')
+tasks = TimeTrello.find_all(Time.new(2012, 1, 1), Time.new(2016, 4, 1), 'Board ID you want to evaluate')
 
 tasks.each do |task|
   # ...
@@ -56,32 +61,42 @@ end
 
 ## Methods
 
-### `getTasks`
+### `initialize`
 
-#### Filter Options
+Initializes the Time Trello subsystem, providing information necessary for its
+proper workings.
 
-| Option | Type | Description | Example |
-|---|:---:|---|---|
-| **startDate** | `String` or `Date` | Start date of search. Default is 30 days ago. | `'2016-04-01'` |
-| **endDate** | `String` or `Date` | End date of search. Default is now. | `'1st Apr 2016 04:05:06+03:30'` |
-| **members** | `String`  or `Array` | Show tasks only those members (usernames). All by default. | `['tom', 'dick', 'harry']` |
-| **labels** | `String`or `Array` | Show tasks only those labels. All by default. | `['Label 1', 'Label 2']` |
-
-#### Response
-
-`Array` with filtered "card tasks".
-
+#### Parameters
+```ruby
+TimeTrello.initialize(public_key, token, prefix=':clock12:')
 ```
-[{
-  card_id: 123456,
-  card_name: 'Name of cards.',
-  total_minutes: 200,
-  time_board: [
-    {id: 123456, member: 'tom', minutes: 50, end_time: 12345678, comment: ''},
-    {id: 123456, member: 'tom', minutes: 50, end_time: 12345678, comment: ''},
-    {id: 123456, member: 'tom', minutes: 50, end_time: 12345678, comment: ''}
-  ]
-}]
+| Parameter | Type | Description |
+|---|:---:|---|
+| **public_key** | `String` | Your Trello developer key |
+| **token** | `String` | The connection token provided by Trello due to its authorization process |
+| **prefix** | `String` | Prefix to use for comment detection. Defaults to `:clock12:  ` |
+
+### `find_all`
+
+Queries Trello, parsing comments which have the required format for consolidation.
+
+#### Parameters
+
+```ruby
+TimeTrello.find_all (start_date, end_date, board_id, &filter)
 ```
 
-That's all, folks.
+| Parameter | Type | Description |
+|---|:---:|---|
+| **start_date** | `Time` | Start date to use for limiting the result set |
+| **end_date** | `Time` | End date to use for limiting the result set |
+| **board_id** | `String` | Trello's board identification to query for |
+| **filter** | `Proc` | Block to use for extra data filtering |
+
+The `filter` block receives as parameter an instance of
+TimeTrello::ActivityRecord. It must return a boolean:
+
+- true: the entry will be on the final result set
+- false: the entry will de discarded from final result set
+
+See the example.rb file for a usage example.
