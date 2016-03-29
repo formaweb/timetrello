@@ -8,7 +8,7 @@
 
 require 'date'
 
-require 'time_trello/activity_record'
+require 'timetrello/activity_record'
 
 module TimeTrello
 

@@ -8,8 +8,9 @@
 # representation
 
 require 'trello'
-require 'time_trello/activity_record'
-require 'time_trello/parser'
+
+require 'timetrello/activity_record'
+require 'timetrello/parser'
 
 module TimeTrello
 

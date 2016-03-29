@@ -7,7 +7,7 @@
 # Test scenarios for Trello Driver
 
 require 'minitest/autorun'
-require 'time_trello/trello_driver'
+require 'timetrello/trello_driver'
 
 class TestTrelloDriver < Minitest::Test
   attr_accessor :board_id

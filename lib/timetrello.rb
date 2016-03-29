@@ -8,10 +8,10 @@
 
 require 'trello'
 
-require 'time_trello/version'
-require 'time_trello/report'
-require 'time_trello/duration'
-require 'time_trello/activity_record'
+require 'timetrello/version'
+require 'timetrello/report'
+require 'timetrello/duration'
+require 'timetrello/activity_record'
 
 module TimeTrello
   # Private: Prefix for comment detection/parsing

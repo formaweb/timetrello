@@ -7,7 +7,7 @@
 # Defines the structure that holds the activity record grabbed from a trello
 # board.
 
-require 'time_trello/duration';
+require 'timetrello/duration';
 
 module TimeTrello
   

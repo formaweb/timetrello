@@ -7,7 +7,7 @@
 # Test scenarios for the main gem interface
 
 require 'minitest/autorun'
-require 'time_trello'
+require 'timetrello'
 
 class TestTrelloMainInterface < Minitest::Test
   attr_accessor :board_id
