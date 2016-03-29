@@ -22,8 +22,6 @@ module TimeTrello
     attr_accessor :end_date
     # Public: board identification for reporting
     attr_accessor :board_id
-    # Public: Result set containing all data grabbed from trello
-    attr_accessor :result_set
 
     # Public: Initializes this class providing initial filter information
     #
@@ -35,7 +33,6 @@ module TimeTrello
       @start_date = start_date
       @end_date = end_date
       @board_id = board_id
-      @result_set = [ ]
       @prefix = prefix
     end
 
@@ -49,20 +46,15 @@ module TimeTrello
     # method. Each element on the array is, in fact, an instance of
     # TimeTrello::ActivityRecord
     def find_all &filter
-      if @result_set.length > 0
-        return @result_set.find_all filter
-      end
-      
       driver = TrelloDriver.new(@board_id, @prefix)
-      @result_set = driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
-      
+      result_set = driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
+
       if filter
-        return @result_set.find_all filter  
+        return result_set.find_all &filter  
       end
 
-      @result_set
+      result_set
     end
     
   end
-  
 end

@@ -84,6 +84,14 @@ module TimeTrello
 
       duration
     end
+
+    # Public: Converts an instance of this class to a string
+    # representation. This is a simple facility for fast representation
+    # on-screen.
+    #
+    def to_s
+      "#{hours}:#{minutes}.#{seconds}"
+    end
   end
 
 end
