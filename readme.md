@@ -67,14 +67,16 @@ Initializes the Time Trello subsystem, providing information necessary for its
 proper workings.
 
 #### Parameters
+
 ```ruby
 TimeTrello.initialize(public_key, token, prefix=':clock12:')
 ```
+
 | Parameter | Type | Description |
 |---|:---:|---|
-| **public_key** | `String` | Your Trello developer key |
-| **token** | `String` | The connection token provided by Trello due to its authorization process |
-| **prefix** | `String` | Prefix to use for comment detection. Defaults to `:clock12:` |
+| **`public_key`** | `String` | Your Trello developer key |
+| **`token`** | `String` | The connection token provided by Trello due to its authorization process |
+| **`prefix`** | `String` | Prefix to use for comment detection. Defaults to `:clock12:` |
 
 ### `find_all`
 
@@ -88,10 +90,10 @@ TimeTrello.find_all (start_date, end_date, board_id, &filter)
 
 | Parameter | Type | Description |
 |---|:---:|---|
-| **start_date** | `Time` | Start date to use for limiting the result set |
-| **end_date** | `Time` | End date to use for limiting the result set |
-| **board_id** | `String` | Trello's board identification to query for |
-| **filter** | `Proc` | Block to use for extra data filtering |
+| **`start_date`** | `Time` | Start date to use for limiting the result set |
+| **`end_date`** | `Time` | End date to use for limiting the result set |
+| **`board_id`** | `String` | Trello's board identification to query for |
+| **`filter`** | `Proc` | Block to use for extra data filtering |
 
 The `filter` block receives as parameter an instance of
 TimeTrello::ActivityRecord. It must return a boolean:
