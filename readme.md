@@ -33,7 +33,7 @@ You use the module directly.
 All time tracking annotations must follow the specification below in order to be
 understood and consolidated by Time Trello.
 
-**PREFIX** **TIME** [**START_DATE**] "**COMMENT**"
+**PREFIX** **DURATION** [**START_DATE**] "**COMMENT**"
 
 See some valid examples:
 
