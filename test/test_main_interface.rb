@@ -6,7 +6,6 @@
 #
 # Test scenarios for the main gem interface
 
-require 'trello'
 require 'minitest/autorun'
 require 'time_trello'
 

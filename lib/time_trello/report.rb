@@ -50,14 +50,14 @@ module TimeTrello
     # TimeTrello::ActivityRecord
     def find_all &filter
       if @result_set.length > 0
-        return @result_set.find_all &filter
+        return @result_set.find_all filter
       end
       
       driver = TrelloDriver.new(@board_id, @prefix)
       @result_set = driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
       
       if filter
-        return @result_set.find_all &filter  
+        return @result_set.find_all filter  
       end
 
       @result_set

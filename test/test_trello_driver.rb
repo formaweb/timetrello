@@ -6,7 +6,6 @@
 #
 # Test scenarios for Trello Driver
 
-require 'trello'
 require 'minitest/autorun'
 require 'time_trello/trello_driver'
 

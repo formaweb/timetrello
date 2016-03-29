@@ -11,6 +11,7 @@ require 'trello'
 require 'time_trello/version'
 require 'time_trello/report'
 require 'time_trello/duration'
+require 'time_trello/activity_record'
 
 module TimeTrello
   # Private: Prefix for comment detection/parsing

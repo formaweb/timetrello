@@ -16,13 +16,14 @@ module TimeTrello
   # Public: Driver responsible to convert data gathered from Trello to an
   # internal representation.
   class TrelloDriver
-    attr :activities
     attr_accessor :board_id
     attr_accessor :prefix
 
     def initialize(board_id, prefix)
       @board_id = board_id
       @prefix = prefix
+      @activities = []
+      @board = nil
     end
 
     # Public: Getter. Gets a board, based on a board id.
@@ -35,7 +36,7 @@ module TimeTrello
     # Public: Getter. Gets all activities for a given board.
     def activities
       return @activities if @activities != nil && @activities.length > 0
-
+      
       @activities = []
       self.board.cards.each do |card|
         card.actions.each do |action|
@@ -49,5 +50,5 @@ module TimeTrello
       @activities
     end
 
-   end
+  end
 end
