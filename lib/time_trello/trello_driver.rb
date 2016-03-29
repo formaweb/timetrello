@@ -9,8 +9,8 @@
 
 require 'trello'
 
-require 'timetrello/activity_record'
-require 'timetrello/parser'
+require 'time_trello/activity_record'
+require 'time_trello/parser'
 
 module TimeTrello
 

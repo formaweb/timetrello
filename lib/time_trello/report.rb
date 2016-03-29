@@ -6,7 +6,7 @@
 #
 # Reporting engine. Used to select and build a result set to the caller.
 
-require 'timetrello/trello_driver'
+require 'time_trello/trello_driver'
 
 module TimeTrello
 
