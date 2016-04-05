@@ -25,13 +25,28 @@ module TimeTrello
       @prefix = prefix
       @activities = []
       @board = nil
+      @members = nil
     end
 
+    # Public: Getter. Returns a record parser instance
+    def parser
+      @parser = Parser.new(@prefix) if @parser == nil
+
+      @parser
+    end
+    
     # Public: Getter. Gets a board, based on a board id.
     def board
       @board = Trello::Board.find(@board_id) if @board == nil
 
       @board
+    end
+
+    # Public: Getter. Gets all members subscribed to the board under analysis
+    def members
+      @members = self.board.members if @members == nil
+
+      @members
     end
 
     # Public: Getter. Gets all activities for a given board.
@@ -41,9 +56,9 @@ module TimeTrello
       @activities = []
       self.board.cards.each do |card|
         card.actions.each do |action|
-          member = Trello::Member.find(action.member_creator_id)
+          member = self.members.first
           action_record = {action: action, member: member}
-          activity = (Parser.new(action_record, @prefix)).parse
+          activity = self.parser.parse(action_record)
           @activities.push(activity) unless activity == nil
         end
       end
@@ -51,5 +66,10 @@ module TimeTrello
       @activities
     end
 
+    # Public: Resets the driver caches
+    def reset_cache
+      @activities = nil
+      @board = nil
+    end
   end
 end

@@ -15,12 +15,9 @@ module TimeTrello
   # Public: Parser for Trello::Action to ActivityRecord conversion. See
   # ruby-trello for Trello::Action class specification. 
   class Parser
-    # Private: Instance of Trello::Action to analize
-    private
-    attr :action_record
-
     # Private: Prefix to use in detecting if a given comment is really an
     # expected one
+    private
     attr :prefix
 
     # Private: Class variable used to hold the workflow pieces that parses the
@@ -98,26 +95,25 @@ module TimeTrello
     #            creator of the action_record with details.
     # prefix - Prefix to use for comment detection
     public
-    def initialize(action_record, prefix)
-      @action_record = action_record
+    def initialize(prefix)
       @prefix = prefix
     end
 
     # Public: Parses the action_record, building an instance of ActivityRecord. This
     # parser is based on a workflow defined by a constant array of blocks. Each
     # block is a step that will be executed in sequence.
-    def parse
-      record = ActivityRecord.new()
+    def parse(action_record)
+      parsed_record = ActivityRecord.new()
 
       for step in self.workflow
-        if !step.call(@action_record, record)
+        if !step.call(action_record, parsed_record)
           # Workflow was interrupted. Not necessarily an error. Possibly the
           # action_record was not the one we are looking for.
           return nil
         end
       end
 
-      record
+      parsed_record
     end
     
   end

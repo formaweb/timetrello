@@ -17,7 +17,7 @@ module TimeTrello
   # Private: Prefix for comment detection/parsing
   private
   attr_accessor :prefix
-
+  
   # Public: Initializes this module with the proper trello client configuration.
   #
   # public_key - Trello public key used for authentication.
@@ -40,7 +40,21 @@ module TimeTrello
   # filter - A block containing a filter for the results. The block must receive
   #          a parameter which is an instance of ActivityRecord.
   def self.find_all(start_date, end_date, board_id, &filter)
-    (Report.new(start_date, end_date, board_id, @prefix)).find_all(&filter)
+    self.report(start_date, end_date, board_id).find_all(&filter)
   end
-  
+
+  # Private: Getter for a report instance. Guarantees only one single instance
+  # available for caching optimization.
+  def self.report(start_date, end_date, board_id)
+    if @report == nil
+      @report = Report.new(start_date, end_date, board_id, @prefix)
+    else
+      # Updates report parameters
+      @report.start_date = start_date
+      @report.end_date = end_date
+      @report.board_id = board_id
+    end
+    
+    @report
+  end
 end
