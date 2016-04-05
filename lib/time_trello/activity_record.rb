@@ -17,6 +17,8 @@ module TimeTrello
   class ActivityRecord
     include Comparable
 
+    # Public: This activity id. This is, actually, Trello's Action Identification.
+    attr_accessor :id
     # Public: Task duration
     attr_accessor :duration
     # Public: Task owner
@@ -36,11 +38,12 @@ module TimeTrello
     # duration - The task duration
     def initialize(*args)
       if args.size != 0
-        @duration          = args[0]
-        @owner             = args[1]
-        @project           = args[2]
-        @start_date        = args[3]
-        @task_description  = args[4]
+        @id                = args[0]
+        @duration          = args[1]
+        @owner             = args[2]
+        @project           = args[3]
+        @start_date        = args[4]
+        @task_description  = args[5]
       end
     end
 
