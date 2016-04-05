@@ -23,35 +23,36 @@ module TimeTrello
     def initialize(board_id, prefix)
       @board_id = board_id
       @prefix = prefix
-      @activities = []
+      @activities = nil
       @board = nil
       @members = nil
+      @parser = nil
     end
 
     # Public: Getter. Returns a record parser instance
     def parser
-      @parser = Parser.new(@prefix) if @parser == nil
+      @parser = Parser.new(@prefix) if @parser.nil?
 
       @parser
     end
     
     # Public: Getter. Gets a board, based on a board id.
     def board
-      @board = Trello::Board.find(@board_id) if @board == nil
+      @board = Trello::Board.find(@board_id) if @board.nil? 
 
       @board
     end
 
     # Public: Getter. Gets all members subscribed to the board under analysis
     def members
-      @members = self.board.members if @members == nil
+      @members = self.board.members if @members.nil?
 
       @members
     end
 
     # Public: Getter. Gets all activities for a given board.
     def activities
-      return @activities if @activities != nil && @activities.length > 0
+      return @activities if !@activities.nil? && @activities.length > 0
       
       @activities = []
       self.board.cards.each do |card|
@@ -59,7 +60,7 @@ module TimeTrello
           member = self.members.first
           action_record = {action: action, member: member}
           activity = self.parser.parse(action_record)
-          @activities.push(activity) unless activity == nil
+          @activities.push(activity) unless activity.nil?
         end
       end
       
