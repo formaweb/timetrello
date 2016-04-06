@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths    = ['lib']
 
   spec.rdoc_options     = ['--charset=UTF-8']
-  spec.extra_rdoc_files = ['readme.me']
+  spec.extra_rdoc_files = ['readme.md']
 
   spec.add_runtime_dependency 'ruby-trello', '~> 1.4',  '>= 1.4.1'
 end
