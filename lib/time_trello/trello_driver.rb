@@ -23,33 +23,76 @@ module TimeTrello
     def initialize(board_id, prefix)
       @board_id = board_id
       @prefix = prefix
-      @activities = []
+      @activities = nil
       @board = nil
+      @members = nil
+      @parser = nil
     end
 
+    # Public: Getter. Returns a record parser instance
+    def parser
+      @parser = Parser.new(@prefix) if @parser.nil?
+
+      @parser
+    end
+    
     # Public: Getter. Gets a board, based on a board id.
     def board
-      @board = Trello::Board.find(@board_id) if @board == nil
+      retried = false
+
+      begin
+        @board = Trello::Board.find(@board_id) if @board.nil? 
+      rescue
+        if !retried
+          retried = true
+          retry
+        else
+          raise "Failed to connect to Trello API"
+        end 
+      end
 
       @board
     end
 
+    # Public: Getter. Gets all members subscribed to the board under analysis
+    def members
+      retried = false
+
+      begin
+        @members = self.board.members if @members.nil?
+      rescue
+        if !retried
+          retried = true
+          retry
+        else
+          raise "Failed to connect to Trello API"
+        end
+      end
+      
+      @members
+    end
+
     # Public: Getter. Gets all activities for a given board.
     def activities
-      return @activities if @activities != nil && @activities.length > 0
+      return @activities if !@activities.nil? && @activities.length > 0
       
       @activities = []
       self.board.cards.each do |card|
         card.actions.each do |action|
-          member = Trello::Member.find(action.member_creator_id)
+          member = self.members.first
           action_record = {action: action, member: member}
-          activity = (Parser.new(action_record, @prefix)).parse
-          @activities.push(activity) unless activity == nil
+          activity = self.parser.parse(action_record)
+          @activities.push(activity) unless activity.nil?
         end
       end
       
       @activities
     end
 
+    # Public: Resets the driver caches
+    def reset_cache
+      @activities = nil
+      @board = nil
+    end
   end
 end

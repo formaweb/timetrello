@@ -14,7 +14,16 @@ module TimeTrello
   # structure. It coordinates efforts with the persistence manager in order to
   # collect data from a given trello board.
   class Report
+    # Private: Getter for trello driver.
+    protected
+    def driver
+      @driver = TrelloDriver.new(@board_id, @prefix) if @driver == nil
+
+      @driver
+    end
+    
     # Public: Prefix for proper filtering
+    public
     attr_accessor :prefix
     # Public: Report start date
     attr_accessor :start_date
@@ -46,14 +55,20 @@ module TimeTrello
     # method. Each element on the array is, in fact, an instance of
     # TimeTrello::ActivityRecord
     def find_all &filter
-      driver = TrelloDriver.new(@board_id, @prefix)
-      result_set = driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
+      result_set = self.driver.activities.find_all { |activity| activity.start_date >= @start_date && activity.start_date <= @end_date }
 
       if filter
         return result_set.find_all &filter  
       end
 
       result_set
+    end
+
+    def board_id=(board_id)
+      if board_id != @board_id
+        @board_id = board_id
+        self.driver.reset_cache
+      end
     end
     
   end
