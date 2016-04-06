@@ -38,15 +38,37 @@ module TimeTrello
     
     # Public: Getter. Gets a board, based on a board id.
     def board
-      @board = Trello::Board.find(@board_id) if @board.nil? 
+      retried = false
+
+      begin
+        @board = Trello::Board.find(@board_id) if @board.nil? 
+      rescue
+        if !retried
+          retried = true
+          retry
+        else
+          raise "Failed to connect to Trello API"
+        end 
+      end
 
       @board
     end
 
     # Public: Getter. Gets all members subscribed to the board under analysis
     def members
-      @members = self.board.members if @members.nil?
+      retried = false
 
+      begin
+        @members = self.board.members if @members.nil?
+      rescue
+        if !retried
+          retried = true
+          retry
+        else
+          raise "Failed to connect to Trello API"
+        end
+      end
+      
       @members
     end
 
