@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email            = ['caiotarifa@gmail.com', 'ronaldo@nineteen.com.br']
   spec.description      = %q{Trello time tracking.}
   spec.summary          = %q{Trello time tracking with Ruby.}
-  spec.homepage         = 'formaweb.github.io/timetrello'
+  spec.homepage         = 'http://formaweb.github.io/timetrello'
 
   spec.files            = `git ls-files lib`.split($/)
   spec.test_files       = spec.files.grep(%r{^(test|spec|features)/})
