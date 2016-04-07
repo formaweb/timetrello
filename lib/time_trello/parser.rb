@@ -70,16 +70,15 @@ module TimeTrello
           !activity.start_date.nil?
         end,
 
-        # Parses the task comment
+        # Parses the task comment and card name
         lambda do |action_record, activity|
           txt_comment = action_record[:action].data["text"].scan(/"[a-zA-Z0-9]+"/)
           if txt_comment.size != 0
-            activity.task_description = txt_comment[0]
-          else
-            activity.task_description  = action_record[:action].card.name
+            activity.task_description = txt_comment.first
           end
+          activity.card_name = action_record[:action].card.name
 
-          !activity.task_description.nil?
+          !activity.card_name.nil? || !activity.task_description.nil?
         end,
 
         # Parses the task id

@@ -18,10 +18,10 @@ TimeTrello.initialize(public_key, member_token)
 activities = TimeTrello.find_all(Time.new(2012, 1, 1), Time.new(2016, 4, 1), ENV['BOARD_ID'])
 
 puts "*** Activities within a date range ***"
-activities.each { |activity| puts "Owner: #{activity.owner}\n\tDuration: #{activity.duration}\n\tTask: #{activity.task_description}" }
+activities.each { |activity| puts "Owner: #{activity.owner}\n\tDuration: #{activity.duration}\n\tTask: #{activity.task_description}\n\tCard Name:#{activity.card_name}" }
 
 # You may want to get a filtered list of items:
 activities = TimeTrello.find_all(Time.new(2012, 1, 1), Time.new(2016, 4, 1), ENV['BOARD_ID']) { |activity| activity.duration.hours > 1 }
 
 puts "*** Filtered Activities ***"
-activities.each { |activity| puts "Owner: #{activity.owner}\n\tDuration: #{activity.duration}\n\tTask: #{activity.task_description}" }
+activities.each { |activity| puts "Owner: #{activity.owner}\n\tDuration: #{activity.duration}\n\tTask: #{activity.task_description}\n\tCard Name:#{activity.card_name}" }

@@ -29,6 +29,8 @@ module TimeTrello
     attr_accessor :start_date
     # Public: Task comment
     attr_accessor :task_description
+    # Public: Card Name
+    attr_accessor :card_name
     
     # Public: Initializes this class with proper information about a given task
     #
@@ -44,6 +46,7 @@ module TimeTrello
         @project           = args[3]
         @start_date        = args[4]
         @task_description  = args[5]
+        @card_name         = args[6]
       end
     end
 
