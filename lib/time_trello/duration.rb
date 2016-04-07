@@ -28,7 +28,7 @@ module TimeTrello
     def initialize(*args)
       @internal_seconds = 0 
       time_components = args
-      if args.size == 1 && args[0].class.equal?(String)
+      if args.size == 1 && args[0].kind_of?(String)
         time_components = args[0].split(/[:.]/)
       end
       factor = 3600
@@ -40,24 +40,29 @@ module TimeTrello
 
     # Public: Getter. Returns the number of hours from a given duration
     def hours
-      @internal_seconds.abs / 3600
+      @internal_seconds / 3600
     end
 
     # Public: Getter. Returns the number of minutes from the internal representation
     def minutes
-      (@internal_seconds.abs / 60) % 60
+      (@internal_seconds / 60) % 60
     end
 
     # Public: Getter. Returns the number of seconds of a given duration
     def seconds
-      @internal_seconds.abs % 60
+      @internal_seconds % 60
     end
 
     # Public: Getter. Returns the number of raw minutes of a given duration
     #
     # Important: This is a float value, since it is a raw value
     def raw_minutes
-      @internal_seconds.abs.to_f / 60.0
+      @internal_seconds.to_f / 60.0
+    end
+
+    # Public: Getter. Returns the raw seconds for a given duration.
+    def raw_seconds
+      @internal_seconds
     end
 
     # Public: Operator overload. Sums up two different instances of Duration
@@ -80,7 +85,7 @@ module TimeTrello
     # integer division.
     def -(other)
       duration = Duration.new(0)
-      duration.internal_seconds = @internal_seconds - other.internal_seconds
+      duration.internal_seconds = (@internal_seconds - other.internal_seconds).abs
 
       duration
     end
@@ -91,6 +96,11 @@ module TimeTrello
     #
     def to_s
       "#{hours}:#{minutes}.#{seconds}"
+    end
+
+    # Public: Let a developer to inspect this class instance
+    def inspect
+      self.to_s
     end
   end
 
