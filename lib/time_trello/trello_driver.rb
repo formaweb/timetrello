@@ -93,6 +93,7 @@ module TimeTrello
     def reset_cache
       @activities = nil
       @board = nil
+      @members = nil
     end
   end
 end

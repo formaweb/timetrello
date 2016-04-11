@@ -72,9 +72,9 @@ module TimeTrello
 
         # Parses the task comment and card name
         lambda do |action_record, activity|
-          txt_comment = action_record[:action].data["text"].scan(/"[a-zA-Z0-9]+"/)
+          txt_comment = action_record[:action].data["text"].scan(/"[\w\W\s]+"/)
           if txt_comment.size != 0
-            activity.task_description = txt_comment.first
+            activity.task_description = txt_comment.first.delete("\"")
           end
           activity.card_name = action_record[:action].card.name
 
