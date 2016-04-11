@@ -1,6 +1,6 @@
 # TimeTrello
 
-Time Trello is a simple gem that can interpret special trello comments. Those
+**TimeTrello** is a simple gem that can interpret special trello comments. Those
 comments are then converted to a record type that makes it easy to integrate a
 time tracking application with Trello.
 
@@ -31,7 +31,7 @@ You use the module directly.
 ### Trello
 
 All time tracking annotations must follow the specification below in order to be
-understood and consolidated by Time Trello.
+understood and consolidated by **TimeTrello**.
 
 **PREFIX** **DURATION** [**START_DATE**] "**COMMENT**"
 
@@ -63,7 +63,7 @@ end
 
 ### `initialize`
 
-Initializes the Time Trello subsystem, providing information necessary for its
+Initializes the **TimeTrello** subsystem, providing information necessary for its
 proper workings.
 
 #### Parameters
@@ -96,7 +96,7 @@ TimeTrello.find_all (start_date, end_date, board_id, &filter)
 | **`filter`** | `Proc` | Block to use for extra data filtering |
 
 The `filter` block receives as parameter an instance of
-TimeTrello::ActivityRecord. It must return a boolean:
+`TimeTrello::ActivityRecord`. It must return a boolean:
 
 - `true`: the entry will be on the final result set
 - `false`: the entry will de discarded from final result set
