@@ -64,13 +64,12 @@ module TimeTrello
       result_set
     end
 
-    # Public: Setter. Overrides the board_id setter in order to initialize the
-    # driver properly
+    # Public: Setter. Overrides the board_id setter in order to re-initialize
+    # the driver properly with new settings.
     def board_id=(board_id)
       if board_id != @board_id
         @board_id = board_id
         self.driver.reset_cache
-        puts "Driver reset"
       end
     end
     
