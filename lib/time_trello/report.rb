@@ -69,7 +69,8 @@ module TimeTrello
     def board_id=(board_id)
       if board_id != @board_id
         @board_id = board_id
-        self.driver.reset_cache
+        # Forces the driver reload with the new settings
+        @driver = nil
       end
     end
     
