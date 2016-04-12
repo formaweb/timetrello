@@ -46,7 +46,7 @@ module TimeTrello
   # Private: Getter for a report instance. Guarantees only one single instance
   # available for caching optimization.
   def self.report(start_date, end_date, board_id)
-    if @report == nil
+    if @report.nil?
       @report = Report.new(start_date, end_date, board_id, @prefix)
     else
       # Updates report parameters

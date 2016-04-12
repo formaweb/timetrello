@@ -79,7 +79,7 @@ module TimeTrello
       @activities = []
       self.board.cards.each do |card|
         card.actions.each do |action|
-          member = self.members.first
+          member = self.members.select { |member| member.id == action.member_creator_id }.first
           action_record = {action: action, member: member}
           activity = self.parser.parse(action_record)
           @activities.push(activity) unless activity.nil?
@@ -93,6 +93,7 @@ module TimeTrello
     def reset_cache
       @activities = nil
       @board = nil
+      @members = nil
     end
   end
 end
